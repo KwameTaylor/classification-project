@@ -9,7 +9,7 @@ from acquire import get_telco_data, new_telco_data
 
 # Prep Telco Churn Data
 
-# The fucnction below will acquire the data with get_telco_data from acquire.py and prepare the features to use in data exploration.
+# The function below will acquire the data with get_telco_data from acquire.py and prepare the features to use in data exploration.
 def prep_telco():
     # acquire the data from csv (or sql if no csv exists) and assign it as a DataFrame
     df = get_telco_data()
@@ -58,3 +58,13 @@ def prep_telco():
     # Data is now tidy and ready to split into train, validate, and test.
 
     return df
+
+def telco_split(df):
+    # performs train, validate, test split on telco data, stratified by churn
+    train_validate, test = train_test_split(df, test_size=.2, 
+                                        random_state=666, 
+                                        stratify=df.churn)
+    train, validate = train_test_split(train_validate, test_size=.3, 
+                                   random_state=666, 
+                                   stratify=train_validate.churn)
+    return train, validate, test
