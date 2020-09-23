@@ -17,7 +17,7 @@ def prep_telco():
     # set the index to be customer_id
     df = df.set_index('customer_id')
 
-    # cut down on the complexity of data by combining the variables for various add-on packages
+    # cut down on the complexity of data by combining the variables for add-on packages
     # into one variable, num_add_ons, that adds up the number of add-on services each customer has
 
     # map strings into 1s and 0s, 1 meaning that the customer has that add-on
