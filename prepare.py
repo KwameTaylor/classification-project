@@ -46,6 +46,21 @@ def prep_telco():
     df.dependents = df.dependents.map({'Yes': 1, 'No': 0})
     df.churn = df.churn.map({'Yes': 1, 'No': 0})
 
+    # Right now the contract types are map from 1 to 3, so I'm going to re-map it starting from 0.
+    # 0 is Month-to-Month
+    # 1 is Yearly
+    # 2 is Two Year
+    df.contract_type_id = df.contract_type_id.map({1: 0, 2: 1, 3: 2})
+
+    # Going to re-map the internet_type_id column in the same way.
+    # 0 is No Internet Service
+    # 1 is DSL
+    # 2 is Fiber Optic
+    df.internet_service_type_id = df.internet_service_type_id.map({1: 0, 2: 1, 3: 2})
+
+    # Now to add a column called tenure_yrs that represents tenure in years
+    df['tenure_yrs'] = round((df.tenure / 12), 2)
+
     # Rename columns to shorter names for readability and ease of use:
     # contract_type_id --> contract_type
     # phone_service --> phone
